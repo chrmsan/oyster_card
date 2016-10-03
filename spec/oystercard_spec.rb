@@ -32,20 +32,18 @@ describe Oystercard do
   describe "#initialize" do
 
     it "defaults in_journey? to false" do
-      expect(subject.in_journey?).to be_false
+      expect(subject.in_journey?).to eq false
     end
   end
 
   it "changes in_journey to true on touch_in" do
     subject.touch_in
-    expect(subject.in_journey?).to be_true
+    expect(subject.in_journey?).to eq true
   end
-
 
   it "changes in_journey to false on touch_out" do
     subject.touch_in
     subject.touch_out
-    expect(subject.in_journey?).to be_false
+    expect(subject.in_journey?).to eq false
   end
-
 end

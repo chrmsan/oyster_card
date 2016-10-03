@@ -13,9 +13,9 @@ describe Oystercard do
     subject.top_up(value)
     expect(subject.balance).to eq value
   end
-
+end
+describe Oystercard do
   it "has a max limit of 90" do
-    expect(subject.top_up(100)).to raise_error "Can't top up to more than 90 GBP"
+    expect{ subject.top_up(100) }.to raise_error("Can't top up to more than 90 GBP")
   end
-
 end

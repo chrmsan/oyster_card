@@ -9,7 +9,15 @@ class Oystercard
     end 
 
     def top_up(value)
-      fail 
+      fail "Added money surpasses Oystercard limit of #{DEF_MAX_VAL} GBP" if error_max(value)
       @balance += value
     end
+
+
+  private
+
+    def error_max(value)
+      (@balance + value) > DEF_MAX_VAL
+    end
+
 end

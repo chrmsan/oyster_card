@@ -12,7 +12,17 @@ class Oystercard
     @balance += value 
   end
 
+  def deduct(fare)
+    fail "You do not have enough money on your Oystercard" if no_money?(fare) 
+    @balance -= fare
+  end
+
+
   private
+
+  def no_money?(fare)
+    (@balance - fare) < 0
+  end
 
   def exceeds_limit?(value)
     (@balance + value) > @max_limit

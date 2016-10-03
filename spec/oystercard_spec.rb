@@ -20,8 +20,32 @@ describe Oystercard do
 
   it "deducts a fare from the card" do
     fare = 3
-    subject.balance = subject.max_limit
+    subject.top_up(subject.max_limit)
     subject.deduct(fare)
     expect(subject.balance).to eq (subject.max_limit - fare)
   end
+
+  it "throws an error when you do not have enough money" do
+    expect{ subject.deduct(10) }.to raise_error("You do not have enough money on your Oystercard")
+  end
+
+  describe "#initialize" do
+
+    it "defaults in_journey? to false" do
+      expect(subject.in_journey?).to be_false
+    end
+  end
+
+  it "changes in_journey to true on touch_in" do
+    subject.touch_in
+    expect(subject.in_journey?).to be_true
+  end
+
+
+  it "changes in_journey to false on touch_out" do
+    subject.touch_in
+    subject.touch_out
+    expect(subject.in_journey?).to be_false
+  end
+
 end

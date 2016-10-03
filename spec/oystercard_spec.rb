@@ -18,21 +18,21 @@ describe Oystercard do
     expect{ subject.top_up(100) }.to raise_error("Can't top up to more than #{subject.max_limit} GBP")
   end
 
-  it "deducts a fare from the card" do
-    fare = 3
-    subject.top_up(subject.max_limit)
-    subject.deduct(fare)
-    expect(subject.balance).to eq (subject.max_limit - fare)
-  end
-
-#   it "throws an error when you do not have enough money" do
-#     expect{ subject.deduct(10) }.to raise_error("You do not have enough money on your Oystercard")
+#   it "deducts a fare from the card" do
+#     fare = 3
+#     subject.top_up(subject.max_limit)
+#     subject.deduct(fare)
+#     expect(subject.balance).to eq (subject.max_limit - fare)
 #   end
 
-  it "doesn't accept payment when funds below minimum" do
-    subject.top_up(described_class::MINIMUM_FARE - 1)
-    expect{ subject.deduct(1) }.to raise_error("You do not have enough money on your Oystercard")
-  end
+# #   it "throws an error when you do not have enough money" do
+# #     expect{ subject.deduct(10) }.to raise_error("You do not have enough money on your Oystercard")
+# #   end
+
+#   it "doesn't accept payment when funds below minimum" do
+#     subject.top_up(described_class::MINIMUM_FARE - 1)
+#     expect{ subject.deduct(1) }.to raise_error("You do not have enough money on your Oystercard")
+#   end
 
   describe "#initialize" do
 
@@ -47,6 +47,7 @@ describe Oystercard do
   end
 
   it "changes in_journey to false on touch_out" do
+    subject.top_up(described_class::DEFAULT_MAX_LIMIT)
     subject.touch_in
     subject.touch_out
     expect(subject.in_journey?).to eq false

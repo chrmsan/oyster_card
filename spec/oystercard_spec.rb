@@ -9,8 +9,13 @@ describe Oystercard do
   end 
 
   it "can be topped-up" do
-    value = rand(1000)
+    value = 90
     subject.top_up(value)
     expect(subject.balance).to eq value
   end
+
+  it "has a max limit of 90" do
+    expect(subject.top_up(100)).to raise_error "Can't top up to more than 90 GBP"
+  end
+
 end

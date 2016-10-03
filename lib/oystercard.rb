@@ -1,7 +1,7 @@
 class Oystercard
   attr_reader :balance, :max_limit, :in_journey
   DEFAULT_MAX_LIMIT = 90
-  MINIMUM_FUNDS = 1
+  MINIMUM_FARE = 1
 
   def initialize(limit=DEFAULT_MAX_LIMIT)
     @balance = 0
@@ -34,7 +34,7 @@ class Oystercard
   private
 
   def no_money?(fare)
-    @balance <= MINIMUM_FUNDS
+    @balance <= MINIMUM_FARE
   end
 
   def exceeds_limit?(value)

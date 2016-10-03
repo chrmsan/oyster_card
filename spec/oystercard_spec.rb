@@ -30,7 +30,7 @@ describe Oystercard do
 #   end
 
   it "doesn't accept payment when funds below minimum" do
-    subject.top_up(described_class::MINIMUM_FUNDS - 1)
+    subject.top_up(described_class::MINIMUM_FARE - 1)
     expect{ subject.deduct(1) }.to raise_error("You do not have enough money on your Oystercard")
   end
 
@@ -51,4 +51,11 @@ describe Oystercard do
     subject.touch_out
     expect(subject.in_journey?).to eq false
   end
+
+  it "deducts minimum fare on touch_out" do
+    subject.top_up(described_class::DEFAULT_MAX_LIMIT)
+    subject.touch_in
+    expect{ subject.touch_out }.to change{ subject.balance  }.by(-described_class::MINIMUM_FARE)    
+  end
+
 end

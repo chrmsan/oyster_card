@@ -25,8 +25,13 @@ describe Oystercard do
     expect(subject.balance).to eq (subject.max_limit - fare)
   end
 
-  it "throws an error when you do not have enough money" do
-    expect{ subject.deduct(10) }.to raise_error("You do not have enough money on your Oystercard")
+#   it "throws an error when you do not have enough money" do
+#     expect{ subject.deduct(10) }.to raise_error("You do not have enough money on your Oystercard")
+#   end
+
+  it "doesn't accept payment when funds below minimum" do
+    subject.top_up(described_class::MINIMUM_FUNDS - 1)
+    expect{ subject.deduct(1) }.to raise_error("You do not have enough money on your Oystercard")
   end
 
   describe "#initialize" do

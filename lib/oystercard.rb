@@ -15,7 +15,7 @@ class Oystercard
       @balance += value
     end
 
-    def deduct(fare)
+    def deduct(fare = DEF_MIN_FARE)
       @balance -= fare
     end
 
@@ -24,6 +24,7 @@ class Oystercard
     end
 
     def touch_in
+      fail "Insufficient balance to touch in" if @balance < 1
       @in_travel = true
     end
 
@@ -36,6 +37,10 @@ class Oystercard
 
     def error_max(value)
       (@balance + value) > DEF_MAX_VAL
+    end
+
+    def min_balance
+      @balance < 1
     end
 
 end

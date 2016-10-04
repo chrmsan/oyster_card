@@ -52,6 +52,9 @@ describe Oystercard do
     it { is_expected.to respond_to(:touch_out) }
 
 
+
+
+
     it 'should default in_journey initialize with false and before touch_in check that card is not in use' do
       expect { subject.in_journey.to be_false }
     end
@@ -66,7 +69,12 @@ describe Oystercard do
       subject.touch_out
       expect { subject.in_journey.to be_false }
     end
-  
+
+    context 'when there is no money in the card' do
+      it 'will not touch in if below the minimum fare' do
+      expect { subject.touch_in }.to raise_error "Insufficient balance to touch in"
+      end      
+    end
   end
 
 

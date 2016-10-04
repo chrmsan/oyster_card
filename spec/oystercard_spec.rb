@@ -56,7 +56,7 @@ describe Oystercard do
 
   it { is_expected.to respond_to(:touch_in).with(1).argument }
 
-  
+
 
   describe '#touch_out' do
 
@@ -78,5 +78,12 @@ describe Oystercard do
       subject.touch_out(station)
       expect(subject.entry_station).to eq nil
     end 
+
+    it 'checks the length of the journey array' do
+      subject.touch_in(station)
+      subject.touch_out(station)
+      expect(subject.journeys.count).to eq 1
+    end
+
   end
 end

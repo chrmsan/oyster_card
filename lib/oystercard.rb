@@ -24,9 +24,9 @@ class Oystercard
   end
 
   def touch_out(station)
-    @entry_station = nil
     deduct(MIN_FARE)
     @exit_station = station
+    log_journey
   end
 
   def in_journey?
@@ -47,4 +47,15 @@ class Oystercard
   def exceeds_limit?(value)
     (@balance + value) > @max_limit
   end
+
+  def log_journey
+     @journeys << {:entry_station => @entry_station, :exit_station => @exit_station}
+     clear_station 
+  end
+
+  def clear_station
+    @entry_station = nil
+    @exit_station = nil
+  end
+
 end

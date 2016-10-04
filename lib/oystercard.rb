@@ -2,7 +2,7 @@ require_relative 'station'
 
 class Oystercard
 
-  attr_reader :balance, :in_journey, :entry_station
+  attr_reader :balance, :in_journey, :entry_station, :journeys
 
   DEF_MAX_VAL = 90
   DEF_MIN_FARE = 1
@@ -10,6 +10,7 @@ class Oystercard
     def initialize
       @balance = 0
       @entry_station = nil
+      @journeys = {}
     end 
 
     def top_up(value)
@@ -39,7 +40,7 @@ class Oystercard
     end
 
     def min_balance
-      @balance < 1
+      @balance < DEF_MIN_FARE
     end
 
     def deduct(fare)

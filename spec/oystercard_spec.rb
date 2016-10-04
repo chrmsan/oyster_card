@@ -64,6 +64,8 @@ describe Oystercard do
     end
   end
 
+
+
   let(:station) { double :station }
 
   it 'stores the entry station' do
@@ -71,6 +73,17 @@ describe Oystercard do
     subject.touch_in(station)
     expect(subject.entry_station).to eq station
   end
+
+
+
+  describe '#journeys' do
+
+      it 'new card should show an empty list when calling on journey' do
+        expect(subject.journeys).to be_empty 
+      end
+
+  end
+
 
   # describe '#deduct' do      NO LONGER RELEVANT SINCE DEDUCT METHOD IS IN PRIVATE
 

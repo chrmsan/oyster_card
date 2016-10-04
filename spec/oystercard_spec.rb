@@ -29,17 +29,17 @@ describe Oystercard do
 
 
 
-  describe '#deduct' do
+  # describe '#deduct' do      NO LONGER RELEVANT SINCE METHOD IS IN PRIVATE
 
-    it { is_expected.to respond_to(:deduct).with(1).argument }
+  #   it { is_expected.to respond_to(:deduct).with(1).argument }
 
-    it 'should be able to deduct min_fare price from card' do
-      min_fare = described_class::DEF_MIN_FARE
-      subject.top_up(described_class::DEF_MAX_VAL)
-      expect { subject.deduct(min_fare) }.to change { subject.balance }.by(-min_fare)
-    end
+  #   it 'should be able to deduct min_fare price from card' do
+  #     min_fare = described_class::DEF_MIN_FARE
+  #     subject.top_up(described_class::DEF_MAX_VAL)
+  #     expect { subject.deduct(min_fare) }.to change { subject.balance }.by(-min_fare)
+  #   end
 
-  end
+  # end
 
 
 

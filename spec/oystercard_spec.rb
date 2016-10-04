@@ -37,6 +37,14 @@ describe Oystercard do
       expect(subject.entry_station).to be_nil
     end
 
+    it 'initializes a journey variable as an array' do
+      expect(subject.journeys).to eq []
+    end
+
+    it 'intializes an exit_station variable to nil' do
+      expect(subject.exit_station).to be_nil
+    end
+
   end
 
 

@@ -37,20 +37,20 @@ describe Oystercard do
   describe "#initialize" do
 
     it "defaults in_journey? to false" do
-      expect(subject.in_journey?).to eq false
+      expect { subject.in_journey?.to be_false }
     end
   end
 
   it "changes in_journey to true on touch_in" do
     subject.touch_in
-    expect(subject.in_journey?).to eq true
+    expect{ subject.in_journey?.to be_true }
   end
 
   it "changes in_journey to false on touch_out" do
     subject.top_up(described_class::DEFAULT_MAX_LIMIT)
     subject.touch_in
     subject.touch_out
-    expect(subject.in_journey?).to eq false
+    expect{ subject.in_journey?.to be_false }
   end
 
   it "deducts minimum fare on touch_out" do

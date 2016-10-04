@@ -28,26 +28,11 @@ describe Oystercard do
   end
 
 
-
-  # describe '#deduct' do      NO LONGER RELEVANT SINCE METHOD IS IN PRIVATE
-
-  #   it { is_expected.to respond_to(:deduct).with(1).argument }
-
-  #   it 'should be able to deduct min_fare price from card' do
-  #     min_fare = described_class::DEF_MIN_FARE
-  #     subject.top_up(described_class::DEF_MAX_VAL)
-  #     expect { subject.deduct(min_fare) }.to change { subject.balance }.by(-min_fare)
-  #   end
-
-  # end
-
-
-
   describe '#in_journey' do
 
-    it { is_expected.to respond_to(:in_journey) }
+    it { is_expected.to respond_to(:in_journey)}
     
-    it { is_expected.to respond_to(:touch_in) }
+    it { is_expected.to respond_to(:touch_in).with(1).argument  }
 
     it { is_expected.to respond_to(:touch_out) }
 
@@ -61,24 +46,43 @@ describe Oystercard do
 
     it 'should change in_travel from false to true when using touch_in' do
       subject.top_up(described_class::DEF_MAX_VAL)
-      subject.touch_in
+      subject.touch_in(station)
       expect { subject.in_journey.to be_true }
     end
 
     it 'should change in_travel from true to false when using touch_out' do
       subject.top_up(described_class::DEF_MAX_VAL)  
-      subject.touch_in
+      subject.touch_in(station)
       subject.touch_out
       expect { subject.in_journey.to be_false }
     end
 
     context 'when there is no money in the card' do
       it 'will not touch_in if it is below the minimum fare' do
-      expect { subject.touch_in }.to raise_error "Insufficient balance to touch in"
+      expect { subject.touch_in(station) }.to raise_error "Insufficient balance to touch in"
       end      
     end
   end
 
+  let(:station) { double :station }
+
+  it 'stores the entry station' do
+    subject.top_up(described_class::DEF_MAX_VAL) 
+    subject.touch_in(station)
+    expect(subject.entry_station).to eq station
+  end
+
+  # describe '#deduct' do      NO LONGER RELEVANT SINCE DEDUCT METHOD IS IN PRIVATE
+
+  #   it { is_expected.to respond_to(:deduct).with(1).argument }
+
+  #   it 'should be able to deduct min_fare price from card' do
+  #     min_fare = described_class::DEF_MIN_FARE
+  #     subject.top_up(described_class::DEF_MAX_VAL)
+  #     expect { subject.deduct(min_fare) }.to change { subject.balance }.by(-min_fare)
+  #   end
+
+  # end
 
 
 end

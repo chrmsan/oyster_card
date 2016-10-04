@@ -33,7 +33,7 @@ describe Oystercard do
 
     it { is_expected.to respond_to(:deduct).with(1).argument }
 
-    it 'should be able to deduct min fare price from card' do
+    it 'should be able to deduct min_fare price from card' do
       min_fare = described_class::DEF_MIN_FARE
       subject.top_up(described_class::DEF_MAX_VAL)
       expect { subject.deduct(min_fare) }.to change { subject.balance }.by(-min_fare)
@@ -55,23 +55,25 @@ describe Oystercard do
 
 
 
-    it 'should default in_journey initialize with false and before touch_in check that card is not in use' do
+    it 'should default in_journey initialize with false and before touch_in to check that card is not in use' do
       expect { subject.in_journey.to be_false }
     end
 
     it 'should change in_travel from false to true when using touch_in' do
+      subject.top_up(described_class::DEF_MAX_VAL)
       subject.touch_in
       expect { subject.in_journey.to be_true }
     end
 
     it 'should change in_travel from true to false when using touch_out' do
+      subject.top_up(described_class::DEF_MAX_VAL)  
       subject.touch_in
       subject.touch_out
       expect { subject.in_journey.to be_false }
     end
 
     context 'when there is no money in the card' do
-      it 'will not touch in if below the minimum fare' do
+      it 'will not touch_in if it is below the minimum fare' do
       expect { subject.touch_in }.to raise_error "Insufficient balance to touch in"
       end      
     end

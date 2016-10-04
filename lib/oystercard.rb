@@ -8,7 +8,6 @@ class Oystercard
   def initialize(limit=DEF_MAX_LIMIT)
     @balance = 0
     @max_limit = limit
-    @in_journey = false
     @entry_station = nil
   end
 
@@ -18,17 +17,16 @@ class Oystercard
   end
 
   def touch_in(station)
-    @in_journey = true
     @entry_station = station
   end
 
   def touch_out
-    @in_journey = false
+    @entry_station = nil
     deduct(MIN_FARE)
   end
 
   def in_journey?
-    @in_journey
+    @entry_station == nil ? false : true 
   end
 
   private

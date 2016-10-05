@@ -25,4 +25,15 @@ describe Journey do
   end
 
 
+  it "checks that the station argument in_touch in is the same as entry_station" do
+    card.touch_in(station1)
+    expect(card.journey.entry_station).to eq(station1)
+  end
+
+  it "stores a whole journey in an array of hashes" do
+    card.touch_in(station1)
+    card.touch_out(station2)
+    expect(card.journey.journey_log).to match_array([in: station1, out: station2])
+  end
+
 end

@@ -23,4 +23,9 @@ class Journey
   def incomplete_journey?
     @entry_station == nil || @exit_station == nil
   end
+
+  def zone_difference
+     (@entry_station.zone - @exit_station.zone).abs
+  end
+  
 end

@@ -3,8 +3,9 @@ require 'spec_helper'
 describe Journey do
 
   let(:card) {Oystercard.new(Oystercard::MINIMUM_FARE) { include StartEnd } }
-  let(:station1) {double(:station)}
-  let(:station2) {double(:station)}
+  let(:station1) {double(:station1, :zone=>1) }
+  let(:station2) {double(:station2, :zone=>1) }
+  let(:station3) {double(:station3, :zone=>3) }
 
   describe '#in_journey?' do
     it 'verifies that users is NOT in a journey' do

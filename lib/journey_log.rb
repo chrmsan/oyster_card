@@ -16,5 +16,4 @@ class JourneyLog
     journeys << {in: @entry_station, out: @exit_station}
   end
 
-
 end

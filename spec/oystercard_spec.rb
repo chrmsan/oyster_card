@@ -3,9 +3,12 @@ require 'spec_helper'
 describe Oystercard do
 
   let(:card) {Oystercard.new(Oystercard::MINIMUM_FARE)}
-  let(:station1) {double(:station)}
-  let(:station2) {double(:station)}
+  let(:station1) {double(:station1, :zone=>1) }
+  let(:station2) {double(:station2, :zone=>1) }
+  let(:station3) {double(:station3, :zone=>3) }
+  
 
+ 
   describe '#initialize' do
 
     it 'has a balance of zero' do
@@ -37,9 +40,14 @@ describe Oystercard do
 
   describe '#touch_out' do
 
-    it 'check that user has been deducted for the journey on touch out' do
+    it 'check that user has been deducted for a journey on touch out in the same zone' do
       card.touch_in(station1)
-      expect { card.touch_out(station2) }.to change{ card.balance }.by(-Oystercard::MINIMUM_FARE)
+      expect { card.touch_out(station2) }.to change{ card.balance }.by(-1)
+    end
+
+    it 'check that user has been deducted for a journey when touch_in at zone 1 and touch_out at zone 3' do
+      card.touch_in(station1)
+      expect { card.touch_out(station3) }.to change{ card.balance }.by(-3)
     end
   end
 
@@ -57,11 +65,5 @@ describe Oystercard do
   end
 
 
-  describe '#fare' do
-
-    it "should return the minimum fare or the penalty fare" do
-
-    end
-  end
 
 end

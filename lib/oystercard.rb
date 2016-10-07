@@ -53,6 +53,10 @@ private
   end
 
   def fare
-    journey.incomplete_journey? ? PENALTY_FARE : MINIMUM_FARE
+    journey.incomplete_journey? ? PENALTY_FARE : calc_zone_fare
+  end
+
+  def calc_zone_fare
+    MINIMUM_FARE + (journey.zone_difference)
   end
 end

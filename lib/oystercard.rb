@@ -24,28 +24,28 @@ class Oystercard
   end
 
 
-  def touch_in(station_name)
+  def touch_in(station)
     fail "Insufficient funds to travel" if insufficient_funds?
-    journey.in_journey == true ? deduct(fare) : start_journey(station_name)
+    journey.in_journey? == true ? deduct(fare) : start_journey(station)
   end
 
-  def touch_out(station_name)
-    finish_journey(station_name)
+  def touch_out(station)
+    finish_journey(station)
     deduct(fare)
-    journey.reset_journey
-    journey_log.record_journey
+    journey.reset
+    journey_log.record
   end
 
 private
 
-  def start_journey(station_name)
-    journey.start(station_name)
-    journey_log.start(station_name)
+  def start_journey(station)
+    journey.start(station)
+    journey_log.start(station)
   end
 
-  def finish_journey(station_name)
-    journey.end(station_name)
-    journey_log.end(station_name)
+  def finish_journey(station)
+    journey.end(station)
+    journey_log.end(station)
   end
 
   def deduct(amount)
@@ -53,7 +53,7 @@ private
   end
 
   def fare
-    journey.incomplete_journey? ? PENALTY_FARE : calc_zone_fare
+    journey.nil_stations? ? PENALTY_FARE : calc_zone_fare
   end
 
   def calc_zone_fare

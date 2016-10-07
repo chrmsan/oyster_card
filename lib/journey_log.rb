@@ -12,7 +12,7 @@ class JourneyLog
     @exit_station = exit_station
   end
 
-  def record_journey
+  def record
     journeys << {in: @entry_station, out: @exit_station}
   end
 

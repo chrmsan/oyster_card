@@ -11,16 +11,16 @@ class Journey
     @exit_station = exit_station
   end
 
-  def reset_journey
+  def reset
      @entry_station = nil
      @exit_station = nil
   end
 
-  def in_journey
-    @entry_station != nil ? true : false
+  def in_journey?
+    !!@entry_station
   end
 
-  def incomplete_journey?
+  def nil_stations?
     @entry_station == nil || @exit_station == nil
   end
 

@@ -19,13 +19,13 @@ class Oystercard
   end
 
   def top_up(amount)
-    fail "Maximum balance exceeded. Maximum balance allowed is #{MAXIMUM_BALANCE}" if amount > (MAXIMUM_BALANCE - balance)
+    fail "Maximum balance exceeded. Maximum balance allowed is #{MAXIMUM_BALANCE}" if balance_exceeded?(amount)
     @balance += amount
   end
 
 
   def touch_in(station_name)
-    fail "Insufficient funds to travel" if @balance < MINIMUM_FARE
+    fail "Insufficient funds to travel" if insufficient_funds?
     journey.in_journey == true ? deduct(fare) : start_journey(station_name)
   end
 
@@ -58,5 +58,13 @@ private
 
   def calc_zone_fare
     MINIMUM_FARE + (journey.zone_difference)
+  end
+
+  def balance_exceeded?(amount)
+    amount > (MAXIMUM_BALANCE - balance)
+  end
+
+  def insufficient_funds?
+    @balance < MINIMUM_FARE
   end
 end

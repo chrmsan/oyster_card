@@ -25,7 +25,7 @@ class Journey
   end
 
   def zone_difference
-     (@entry_station.zone - @exit_station.zone).abs
+    (@entry_station.zone - @exit_station.zone).abs
   end
   
 end
